@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "locale": "zh-CN",
+  "levels": [
+    {
+      "key": "ULTRA",
+      "label": "大吉",
+      "emoji": "⚡",
+      "probability": 0.10,
+      "color": "#FFD700",
+      "style": "legend_flash",
+      "copy_examples": [
+        "万事皆宜，代码无 Bug，甲方无修改。",
+        "今天的你自带主角光环。"
+      ],
+      "haptics": "success_heavy"
+    },
+    {
+      "key": "SUPER",
+      "label": "中吉",
+      "emoji": "🟢",
+      "probability": 0.25,
+      "color": "#00FF41",
+      "style": "neon_green",
+      "copy_examples": [
+        "诸事顺遂，适合摸鱼。",
+        "心态平和，效率在线。"
+      ],
+      "haptics": "success_light"
+    },
+    {
+      "key": "BASIC",
+      "label": "小吉",
+      "emoji": "🔵",
+      "probability": 0.40,
+      "color": "#00A0FF",
+      "style": "calm_blue",
+      "copy_examples": [
+        "平稳运行，无功无过。",
+        "按部就班，稳中有进。"
+      ],
+      "haptics": "neutral"
+    },
+    {
+      "key": "GLITCH",
+      "label": "末吉/平",
+      "emoji": "🟡",
+      "probability": 0.15,
+      "color": "#FFC107",
+      "style": "warning_glitch",
+      "copy_examples": [
+        "运势加载中…建议重启心情。",
+        "系统微卡，适合轻任务。"
+      ],
+      "haptics": "warning_soft"
+    },
+    {
+      "key": "ERROR",
+      "label": "凶",
+      "emoji": "🔴",
+      "probability": 0.10,
+      "color": "#FF2D55",
+      "style": "error_modal",
+      "copy_examples": [
+        "宜宅家/断网；忌冲动消费。",
+        "今日不宜打开工作群。"
+      ],
+      "haptics": "error_heavy",
+      "humorize": true
+    }
+  ],
+  "distribution_note": "概率总和为 1.0；可采用偏正态分布生成日项状态。",
+  "themes": {
+    "primary": ["#00FF41", "#FF00FF", "#00FFFF", "#111111"],
+    "watch_face": {
+      "background": "#111111",
+      "time_primary": "#00FF41",
+      "date_highlight": "#00FFFF"
+    }
+  }
+}
+

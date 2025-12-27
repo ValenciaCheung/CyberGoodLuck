@@ -1,0 +1,87 @@
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## User settings
+xcuserdata/
+*.xcuserstate
+*.xcuserdatad
+
+## Xcode Patch
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+
+## Build generated
+build/
+DerivedData/
+
+## Swift Package Manager
+.swiftpm/
+.build/
+Packages/
+Package.resolved
+*.xcworkspace
+
+## CocoaPods
+Pods/
+
+## Carthage
+Carthage/Build/
+
+## Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+## Node.js & npm
+node_modules/
+npm-debug.log*
+.npm/
+.npm-cache/
+dist/
+*.log
+
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+## Thumbnails
+._*
+
+## Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+## Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+## IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+## Testing
+.coverage
+coverage/
+*.cover
+.pytest_cache/
+
+## Environment variables
+.env
+.env.local
+.env.*.local

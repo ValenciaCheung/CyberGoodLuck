@@ -1,0 +1,104 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CyberOracle API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/config/fortune-levels": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "config",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/v1/daily-luck": {
+      "get": {
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "example": "2025-01-01" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "daily luck",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          },
+          "400": { "description": "invalid date" }
+        }
+      }
+    },
+    "/v1/fortune/draw": {
+      "post": {
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "at": { "type": "string", "format": "date-time" } }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "fortune draw",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          },
+          "400": { "description": "invalid at" }
+        }
+      }
+    },
+    "/v1/decision/yesno": {
+      "post": {
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "question": { "type": "string" },
+                  "at": { "type": "string", "format": "date-time" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "decision",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          },
+          "400": { "description": "invalid at" }
+        }
+      }
+    }
+  }
+}
+
