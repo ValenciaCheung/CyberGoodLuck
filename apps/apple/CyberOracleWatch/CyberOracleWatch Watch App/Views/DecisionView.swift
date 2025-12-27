@@ -54,16 +54,6 @@ struct DecisionView: View {
                 }
 
                 Spacer()
-
-                // Reset button (only show after result)
-                if uiState == .result {
-                    Button(action: resetDecision) {
-                        Text("Again")
-                            .font(.system(size: 12, design: .monospaced))
-                            .foregroundColor(neonGreen)
-                    }
-                    .buttonStyle(.plain)
-                }
             }
             .padding()
         }
@@ -156,6 +146,15 @@ struct DecisionView: View {
             Text(formattedTime(decision.decidedAt))
                 .font(.system(size: 10, design: .monospaced))
                 .foregroundColor(.gray)
+
+            // Tap hint
+            Text("Tap to retry")
+                .font(.system(size: 10, design: .monospaced))
+                .foregroundColor(neonGreen.opacity(0.5))
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            resetDecision()
         }
     }
 
