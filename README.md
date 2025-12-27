@@ -56,20 +56,78 @@ CyberGoodLuck/
 - 风格：Cyberpunk HUD/FUI，Dot Matrix，Neon glow
 - 颜色：#00FF41、#FF00FF、#00FFFF、#111111
 
+## 如何运行
+
+### 环境要求
+- macOS 26.0.1+ (Sequoia)
+- Xcode 26.2+
+- watchOS 11.2 Simulator 或真机
+
+### 运行步骤
+1. 打开 Xcode 项目：
+   ```bash
+   open apps/apple/CyberOracleWatch/CyberOracleWatch.xcodeproj
+   ```
+
+2. 选择 Apple Watch 模拟器（例如 Apple Watch Series 9）
+
+3. 构建并运行：
+   - ⌘B 构建
+   - ⌘R 运行
+
+4. 在模拟器上测试：
+   - 左右滑动切换屏幕
+   - 查看实时时钟显示
+
+### 可选：启动后端 API
+```bash
+cd services/cyberoracle-api
+npm install --cache .npm-cache
+npm run dev
+```
+
 ## 实现进度
 
-### ✅ Sprint 1: Foundation (已完成 Swift 代码)
-- ✅ 所有 Swift 源文件已创建
+### ✅ Sprint 1: Foundation (已完成 - 2025-12-27)
+**成果**：可运行的 watchOS App，带实时时钟 HUD
+- ✅ Xcode watchOS 项目创建并配置
+- ✅ Swift Package `CyberOracleCore` 集成（Domain + Data 层）
+- ✅ 所有 ViewModels 实现（DailyLuck/Decision/FortuneStick）
 - ✅ `HomeView` - 赛博时间 HUD（完整实现）
-- ✅ `RootNavigationView` - TabView 导航
-- ✅ 占位 Views：DailyLuck/Decision/Fortune
-- ⏳ **下一步**：在 Xcode 中创建 watchOS 项目并添加文件
+  - 实时时钟（霓虹绿/青色）
+  - PRD 标准日期格式：`2025/12 / date 27`
+  - 等宽字体 + 黑色背景
+- ✅ `RootNavigationView` - TabView 导航（支持左右滑动）
+- ✅ 占位 Views：DailyLuck/Decision/Fortune（Sprint 2-4）
+- ✅ Node.js 后端 API（Fastify + TypeScript）
+- ✅ 项目文档完善（CLAUDE.md, 设置指南）
 
-详细步骤见：`apps/apple/CyberOracleWatchApp/XCODE_SETUP_QUICKSTART.md`
+**验证**：
+- ✅ 在 Apple Watch 模拟器成功运行
+- ✅ 导航流畅（4 个屏幕可滑动切换）
+- ✅ 时间每秒更新
 
-### 🎯 下一步（实现节奏）
-- Sprint 2：Daily Luck（每日运势）- 连接 ViewModel
-- Sprint 3：Decision Maker（日常抉择）- CoreMotion + Haptics
-- Sprint 4：Fortune Sticks（电子求签）- 完整交互流程
-- Sprint 5：Visual Polish（赛博朋克视觉效果）
-- Sprint 6：Sound & Final Polish（音效与最终打磨）
+**提交**：`de01d5e` - feat: Complete Sprint 1
+
+---
+
+### 🚧 Sprint 2: Daily Luck (进行中)
+**目标**：实现每日运势显示，连接 `DailyLuckViewModel`
+
+**计划任务**：
+- [ ] 实现 `DailyLuckView` 的 4 宫格布局
+- [ ] 连接 `DailyLuckViewModel` 获取真实数据
+- [ ] 显示 4 个指标（Love/Money/Career/Health）
+- [ ] 根据等级显示不同颜色和 emoji
+- [ ] 添加午夜自动刷新逻辑
+- [ ] 测试确定性算法（同一天结果一致）
+
+**参考文档**：`docs/PRD-CyberOracle.md` § 2.2
+
+---
+
+### 🎯 后续 Sprints（实现节奏）
+- **Sprint 3**：Decision Maker（日常抉择）- CoreMotion + Haptics
+- **Sprint 4**：Fortune Sticks（电子求签）- 完整交互流程
+- **Sprint 5**：Visual Polish（赛博朋克视觉效果）
+- **Sprint 6**：Sound & Final Polish（音效与最终打磨）
