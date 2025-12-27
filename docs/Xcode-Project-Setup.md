@@ -2,22 +2,25 @@
 
 ## Overview
 
-This guide walks you through creating the Xcode watchOS project for CyberOracle. All Swift source files have been created - you just need to create the Xcode project and add them.
+This guide walks you through creating the Xcode watchOS project for CyberGoodLuck. All Swift source files have been created - you just need to create the Xcode project and add them.
 
 ---
 
 ## Step 1: Create watchOS App Project
 
 1. **Open Xcode**
+
    - Launch Xcode (ensure you have Xcode 15+ for watchOS 10 support)
 
 2. **Create New Project**
+
    - File → New → Project (⇧⌘N)
    - Select **watchOS** tab
    - Choose **App** template
    - Click **Next**
 
 3. **Configure Project**
+
    - **Product Name**: `CyberOracleWatch`
    - **Team**: Select your development team
    - **Organization Identifier**: Your bundle ID (e.g., `com.yourname`)
@@ -27,11 +30,13 @@ This guide walks you through creating the Xcode watchOS project for CyberOracle.
    - Click **Next**
 
 4. **Save Location**
+
    - Navigate to: `/Users/binqiaowang/Desktop/ZT-GoodLuck/CyberGoodLuck/apps/apple/`
    - **Important**: Uncheck "Create Git repository" (already have one)
    - Click **Create**
 
    This will create a folder structure like:
+
    ```
    apps/apple/CyberOracleWatch/
      CyberOracleWatch Watch App/
@@ -47,21 +52,25 @@ This guide walks you through creating the Xcode watchOS project for CyberOracle.
 ## Step 2: Add Local Swift Package (CyberOracleCore)
 
 1. **Open Project Settings**
+
    - Click on the project name in the navigator (blue icon)
    - Select the **CyberOracleWatch Watch App** target
 
 2. **Add Package Dependency**
+
    - Go to **General** tab
    - Scroll to **Frameworks, Libraries, and Embedded Content**
    - Click the **+** button at the bottom
    - Select **Add Package Dependency...**
 
 3. **Add Local Package**
+
    - In the search bar, click **Add Local...**
    - Navigate to: `/Users/binqiaowang/Desktop/ZT-GoodLuck/CyberGoodLuck/packages/CyberOracleCore`
    - Click **Add Package**
 
 4. **Select Products**
+
    - Check both:
      - ✅ **CyberOracleDomain**
      - ✅ **CyberOracleData**
@@ -79,6 +88,7 @@ The Xcode project template creates default files. We need to replace them with o
 ### 3.1 Replace App Entry Point
 
 1. **Delete Default File**
+
    - In the project navigator, find `CyberOracleWatchApp.swift` (the one Xcode created)
    - Right-click → **Delete**
    - Choose **Move to Trash**
@@ -102,11 +112,13 @@ The Xcode project template creates default files. We need to replace them with o
 ### 3.3 Add Navigation and Views
 
 1. **Create Groups (Folders)**
+
    - Right-click on `CyberOracleWatch Watch App`
    - **New Group** → Name it `Navigation`
    - **New Group** → Name it `Views`
 
 2. **Add Navigation File**
+
    - Right-click on `Navigation` folder
    - **Add Files to "CyberOracleWatch"...**
    - Navigate to: `/Users/binqiaowang/Desktop/ZT-GoodLuck/CyberGoodLuck/apps/apple/CyberOracleWatchApp/Navigation/`
@@ -135,13 +147,16 @@ The Xcode project template creates default files. We need to replace them with o
 The custom files need access to `AppEnvironment` from the shared layer.
 
 1. **Add AppEnvironment Import**
+
    - Since `AppEnvironment` is in `CyberOracleAppShared` but we're using it directly, we need to either:
 
      **Option A (Quick)**: Add `AppEnvironment.swift` to the watch app target
+
      - Navigate to: `/Users/binqiaowang/Desktop/ZT-GoodLuck/CyberGoodLuck/apps/apple/CyberOracleAppShared/`
      - Add `AppEnvironment.swift` to the project (don't copy, just reference)
 
      **Option B (Better)**: Import from package
+
      - The file already imports `CyberOracleData`, and `AppEnvironment` should be accessible
      - If not, add this to the top of `CyberOracleWatchApp.swift`:
        ```swift
@@ -153,15 +168,18 @@ The custom files need access to `AppEnvironment` from the shared layer.
 ## Step 5: Build and Run
 
 1. **Select Simulator or Device**
+
    - In the scheme selector (top bar), choose:
      - **Apple Watch Series 9 (45mm)** simulator, or
      - Your physical Apple Watch (if connected)
 
 2. **Build Project**
+
    - Press **⌘B** to build
    - Fix any build errors if they appear
 
 3. **Run Project**
+
    - Press **⌘R** to run
    - The app should launch on the watch simulator/device
 
@@ -205,6 +223,7 @@ Package Dependencies/
 ### Build Error: "Cannot find 'AppEnvironment' in scope"
 
 **Solution**: Add `AppEnvironment.swift` from `apps/apple/CyberOracleAppShared/` to the watch app target:
+
 1. Find the file in Finder: `apps/apple/CyberOracleAppShared/AppEnvironment.swift`
 2. Drag it into Xcode under `CyberOracleWatch Watch App`
 3. **Important**: Uncheck "Copy items if needed" (we want to reference, not duplicate)
@@ -214,6 +233,7 @@ Package Dependencies/
 ### Build Error: "No such module 'CyberOracleData'"
 
 **Solution**: Verify package was added correctly:
+
 1. Project navigator → Click project icon
 2. Select `CyberOracleWatch Watch App` target
 3. Go to **General** → **Frameworks, Libraries, and Embedded Content**
@@ -223,6 +243,7 @@ Package Dependencies/
 ### Simulator Shows Black Screen
 
 **Solution**: Check that `RootNavigationView` is set as the root view:
+
 1. Open `CyberOracleWatchApp.swift`
 2. Verify `body` contains:
    ```swift
@@ -235,6 +256,7 @@ Package Dependencies/
 ### Navigation Not Working (Can't Swipe)
 
 **Solution**: TabView with page style should work automatically on watchOS. Verify:
+
 1. Open `RootNavigationView.swift`
 2. Check that `.tabViewStyle(.page)` is applied
 3. Try swiping slowly from edge of screen
@@ -246,6 +268,7 @@ Package Dependencies/
 Once the project builds and runs successfully:
 
 ✅ **Sprint 1 Complete!** You have:
+
 - Working Xcode watchOS project
 - CyberOracleCore package linked
 - Navigation between 4 screens
@@ -264,3 +287,5 @@ Would you like instructions for this approach?
 ---
 
 **Questions?** Refer to `CLAUDE.md` for project context or check the PRD at `docs/PRD-CyberOracle.md`.
+
+**Note**: The project name is CyberGoodLuck, but the code uses `CyberOracle` as the package/class prefix for brevity.

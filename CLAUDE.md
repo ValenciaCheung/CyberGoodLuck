@@ -1,4 +1,4 @@
-# CyberOracle - Project Context & Implementation Guide
+# CyberGoodLuck - Project Context & Implementation Guide
 
 > **Last Updated**: 2025-12-27
 > **Status**: Sprint 4 Complete ✅ → Ready for Sprint 5 (Visual Polish)
@@ -9,13 +9,13 @@
 
 ## 🎯 Project Overview
 
-**CyberOracle (赛博灵签)** is a cyberpunk-themed fortune-telling and decision-making Apple Watch app combining:
+**CyberGoodLuck (赛博好运求签)** is a Japanese folk art-styled fortune-telling and decision-making Apple Watch app combining:
 - **Daily Luck**: 4-metric personal fortune (Love/Money/Career/Health)
 - **Decision Maker**: Yes/No coin flip with shake gesture
 - **Fortune Sticks**: Traditional Chinese divination (求签) with 5-tier fortune levels
-- **Cyberpunk HUD**: Neon glow, glitch effects, immersive haptics
+- **Japanese Folk Art UI**: Bold black outlines, high-contrast flat vector illustration, traditional color palette
 
-**Core Experience**: Wrist-raise → Swipe → Shake → Feel haptic feedback → See cyberpunk visuals
+**Core Experience**: Wrist-raise → Swipe → Shake → Feel haptic feedback → See Japanese woodblock-inspired visuals
 
 ---
 
@@ -67,9 +67,9 @@
 - **HomeView** (FULLY IMPLEMENTED):
   - ✅ Real-time clock (updates every second)
   - ✅ PRD-compliant date format: `2025/12 / date 27`
-  - ✅ Cyberpunk colors: neon green (#00FF41), cyan (#00FFFF)
-  - ✅ Monospace fonts
-  - ✅ Black background
+  - ✅ Japanese folk art colors: vermillion red, indigo blue
+  - ✅ Bold black outlines
+  - ✅ High-contrast backgrounds
 
 #### 7. watchOS App - Sprint 2 (100% - COMPLETE ✅)
 - **DailyLuckView** (FULLY IMPLEMENTED):
@@ -119,7 +119,7 @@
 
 ### What's Missing (Sprint 5+)
 
-❌ **Cyberpunk visual polish** (Sprint 5 - Next: neon glow, glitch effects, HUD elements)
+❌ **Japanese folk art visual polish** (Sprint 5 - Next: bold outlines, flat vector styling, traditional patterns)
 ❌ **Sound effects** (Sprint 6)
 
 ---
@@ -145,28 +145,30 @@ Domain (What) → Data (How) → App (Presentation)
 
 ---
 
-## 🎨 Design System (Cyberpunk Theme)
+## 🎨 Design System (Japanese Folk Art Style)
 
 ### Color Palette
 ```swift
-// Primary colors (from PRD & config/fortune_levels.json)
-#00FF41  // Neon green (hacker green)
-#FF00FF  // Cyber magenta
-#00FFFF  // Cyan (highlight)
-#111111  // Deep black (background)
+// Primary colors - Traditional Japanese palette
+#000000  // Bold black outlines (key feature)
+#D84236  // Vermillion red (朱色 Shu-iro) - primary accent
+#165E83  // Indigo blue (藍色 Ai-iro) - secondary
+#C89932  // Gold ochre (黄土色 Oudo-iro) - highlights
+#F8F4E6  // Off-white (生成 Kinari) - background
+#D7003A  // Deep red (紅色 Beni-iro) - emphasis
 
-// Fortune level colors
-#FFD700  // ULTRA (gold)
-#00FF41  // SUPER (green)
-#00A0FF  // BASIC (blue)
-#FFD700  // GLITCH (yellow)
-#FF0000  // ERROR (red)
+// Fortune level colors (high-contrast with black outlines)
+#FFD700  // ULTRA (gold) - with bold black outline
+#D84236  // SUPER (vermillion) - with bold black outline
+#165E83  // BASIC (indigo) - with bold black outline
+#C89932  // GLITCH (ochre) - with bold black outline
+#D7003A  // ERROR (deep red) - with bold black outline
 ```
 
 ### Visual Style
-- **Reference**: Cyberpunk 2077 HUD, FUI (Fictional UI), Dot Matrix
-- **Effects**: Neon glow, glitch animation, hologram flicker
-- **Typography**: Monospace fonts (SF Mono, Courier)
+- **Reference**: Japanese woodblock prints (ukiyo-e), modern flat vector illustration, bold manga outlines
+- **Effects**: Bold black strokes (2-3pt), flat color fills, high-contrast compositions
+- **Typography**: Clean sans-serif or traditional Japanese-inspired fonts with strong weight
 
 ### Haptic Patterns
 - **Decision YES**: `.success` haptic
@@ -200,9 +202,9 @@ Domain (What) → Data (How) → App (Presentation)
 - ✅ Linked `CyberOracleCore` Swift Package (Domain + Data)
 - ✅ Setup TabView navigation (swipe left/right)
 - ✅ Implemented HomeView with **real-time clock**:
-  - ✅ Monospace time display (HH:mm:ss)
+  - ✅ Bold time display with black outlines (HH:mm:ss)
   - ✅ PRD-compliant date format (`2025/12 / date 27`)
-  - ✅ Cyberpunk colors (neon green #00FF41, cyan #00FFFF)
+  - ✅ Japanese folk art colors (vermillion #D84236, indigo #165E83)
   - ✅ Updates every second via Timer
 - ✅ Created placeholder views (DailyLuck, Decision, Fortune)
 - ✅ Fixed bundle identifier (removed `.watchkitapp`)
@@ -323,19 +325,19 @@ Domain (What) → Data (How) → App (Presentation)
 ---
 
 #### **Sprint 5: Visual Polish** (Phase 6)
-**Goal**: Apply cyberpunk theme
+**Goal**: Apply Japanese folk art style
 
-- Create `CyberTheme.swift` (color palette)
-- Replace placeholder UI with neon colors
-- Add visual effects (glow, glitch, grid background)
-- Refine typography
+- Create `JapaneseFolkTheme.swift` (traditional color palette)
+- Replace placeholder UI with bold outlined, high-contrast colors
+- Add visual effects (bold strokes, flat fills, traditional patterns)
+- Refine typography with strong weight and clarity
 
 **Files to Create**:
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Design/CyberTheme.swift`
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Design/Components/NeonText.swift`
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Design/Effects/BackgroundEffects.swift`
+- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Design/JapaneseFolkTheme.swift`
+- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Design/Components/OutlinedText.swift`
+- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Design/Effects/TraditionalPatterns.swift`
 
-**Validation**: App looks like PRD mockups
+**Validation**: App looks like PRD mockups with Japanese folk art aesthetic
 
 ---
 
@@ -391,7 +393,7 @@ apps/apple/CyberOracleWatchApp/
     HapticEngine.swift          # Sprint 3
     FortuneHapticPatterns.swift # Sprint 4
   Design/
-    CyberTheme.swift            # Sprint 5
+    JapaneseFolkTheme.swift     # Sprint 5
   Audio/
     SoundEngine.swift           # Sprint 6
 ```
@@ -438,9 +440,9 @@ let shakeThreshold = 2.5 // acceleration magnitude
 
 ## 🎯 Feature Requirements (from PRD)
 
-### Home Screen (赛博时间 HUD)
-- **Display**: Year/month, date, time (monospace)
-- **Background**: Dark grid + breathing light
+### Home Screen (Japanese Time Display)
+- **Display**: Year/month, date, time (bold with black outlines)
+- **Background**: High-contrast traditional pattern or solid color
 - **Navigation**: Swipe left (Daily Luck), Swipe right (Decision/Fortune)
 
 ### Daily Luck (每日运势)
@@ -454,10 +456,10 @@ let shakeThreshold = 2.5 // acceleration magnitude
 - **Stage 3 (Result)**: YES (green) or NO (red) + sound
 
 ### Fortune Sticks (电子求签)
-- **Stage 1 (Shake)**: Holographic cylinder + shake prompt
+- **Stage 1 (Shake)**: Bold-outlined cylinder container + shake prompt
 - **Stage 2 (Haptics)**: "哗啦哗啦" collision feedback
-- **Stage 3 (Drop)**: One stick falls + hovers
-- **Stage 4 (Reveal)**: Flip animation → fortune level + copy text
+- **Stage 3 (Drop)**: One stick falls with flat vector styling
+- **Stage 4 (Reveal)**: Flip animation → fortune level + copy text (high-contrast colors with black outlines)
 
 ---
 
@@ -536,7 +538,7 @@ swift test  # Run XCTest suite
 
 1. **Architecture is complete** - All business logic exists, only UI missing
 2. **Start with Sprint 1** - Create Xcode project + basic navigation
-3. **Use placeholder UI first** - Refine cyberpunk visuals in Sprint 5
+3. **Use placeholder UI first** - Refine Japanese folk art visuals in Sprint 5
 4. **Focus on watchOS** - iPhone expansion comes after MVP
 5. **Offline-first** - Use `LocalOracleService`, deploy backend later
 6. **Test on real device** - Haptics/motion require physical Apple Watch

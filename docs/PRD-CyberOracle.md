@@ -1,127 +1,123 @@
-# 产品需求文档 (PRD)
+Here is the optimized and translated Product Requirement Document (PRD) based on your requests.
 
-| 项目名称 | CyberOracle (赛博灵签)                            |
-| -------- | ------------------------------------------------- |
-| 平台     | Apple Watch (watchOS)                             |
-| 版本     | v1.0 MVP (最小可行性产品)                         |
-| 核心风格 | 赛博朋克、霓虹故障风 (Glitch)、高对比度、禅意科幻 |
-| 更新时间 | 2025/05/20                                        |
+---
 
-## 1. 产品概述 (Product Overview)
+# Product Requirement Document (PRD)
 
-### 1.1 核心价值
+| Item             | Details                                                                                                      |
+| ---------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Project Name** | **CyberGoodLuck**                                                                                            |
+| **Platform**     | Apple Watch (watchOS)                                                                                        |
+| **Version**      | v1.0 MVP (Minimum Viable Product)                                                                            |
+| **Core Style**   | Traditional Japanese folk art mixed with modern flat vector illustration, bold black outlines, high-contrast |
+| **Last Updated** | 2025-12-27                                                                                                   |
 
-利用 Apple Watch 的贴身属性与传感器（陀螺仪/震动马达），打造一款集“实用时钟”与“赛博玄学”于一体的解压工具。让用户在抬腕间完成运势查询与纠结治愈。
+## 1. Product Overview
 
-### 1.2 用户画像
+### 1.1 Core Value
 
-由设计审美驱动的年轻用户、选择困难症患者、喜爱“电子木鱼/赛博佛祖”等亚文化的人群。
+Leveraging the wearable nature and sensors (gyroscope/haptic motor) of the Apple Watch to create a stress-relief tool that combines a "functional clock" with "Cyber Metaphysics." It allows users to check their fortune and cure indecision with a simple wrist raise.
 
-## 2. 页面与功能详细规划 (Feature Specifications)
+### 1.2 User Persona
 
-### 2.1 首页：赛博时间 (Home / Watch Face)
+Design-driven young users, people with "decision paralysis," and subculture groups who enjoy "Cyber Wooden Fish / Cyber Buddha" aesthetics.
 
-默认视图，强调视觉冲击力与信息的高效展示。
+## 2. Feature Specifications
 
-- UI 布局：
-  - 背景：动态黑色流体或暗网格背景，呼吸灯效果
-  - 中心区域：巨大的时间显示
-- 时间格式（严格执行）：
-  - 年月：`2025/10`（左上或顶部，霓虹绿、小号）
-  - 日期：` / date 25`（紧随其后或换行，加粗高亮）
-  - 建议加入时分秒 `12:30:45`，Monospace 等宽字体
-- 交互：
-  - 向左滑动：进入【每日运势】
-  - 向右滑动：进入【日常抉择/电子求签】菜单
+### 2.1 Home / Watch Face
 
-### 2.2 功能一：每日运势 (Daily Luck HUD)
+Default view emphasizing visual impact and efficient information display.
 
-通过数据可视化展示今日“能量值”。
+- **Interaction:**
+- **Swipe Left:** Enter **[Daily Luck HUD]**.
+- **Swipe Right:** Enter Menu **[Daily Luck] [Decision Maker] [Cyber Fortune Sticks]**.
 
-- UI 布局：四宫格或环形雷达图
-- 显示项：
-  1. 💗 Love (桃花)
-  2. 💰 Money (财运)
-  3. 💼 Career (事业)
-  4. ❤️‍🩹 Health (体能)
-- 状态表达（四级）：
-  - Level 1 极好：🤩
-  - Level 2 尚可：🙂
-  - Level 3 一般：😐
-  - Level 4 较差：😵
-- 交互逻辑：每日 00:00 自动随机刷新（偏正态分布，主给“尚可/一般”，偶给“极好”，极少“较差”）
+### 2.2 Feature 1: Daily Luck HUD
 
-### 2.3 功能二：日常抉择 (Decision Maker)
+**Updated to an interactive "Shake" experience.**
 
-解决“吃什么”“去不去”的快速决策。
+- **Trigger:** Wrist raise -> Select "Shake" mode.
+- **Phase 1: Prayer**
+- **Visual:** Japanese style hands clasped in prayer (flat vector + bold black outline).
+- **Action:** Prompt "Shake it".
 
-- 触发：抬腕选择 Yes/No 模式
-- 第一阶段：祈祷 (Prayer)
-  - 画面：机械义肢风格双手合十
-  - 动作：提示 “Shake it” (摇一摇)
-- 第二阶段：判定 (Toss)
-  - 感应：加速度计剧烈晃动
-  - 动画：双手散开 → 发光电路纹理硬币飞起翻转（配合 Taptic Engine 细腻震动）
-- 第三阶段：结果 (Result)
-  - YES：绿色霓虹 “YES”，清脆成功音效
-  - NO：红色故障风 “NO”，低沉报错音效
+- **Phase 2: Toss**
+- **Sensor:** Accelerometer detects vigorous shaking.
+- **Animation:** Hands open → **Animation of a Maneki-neko (Lucky Cat) and "Ten Million Ryo" (千万两) coin.**
 
-### 2.4 功能三：电子求签 (Cyber Fortune Sticks)
+- **Phase 3: Result (Status Levels)**
+- **Level 1 Excellent:** 🤩
+- **Level 2 Fair:** 🙂
+- **Level 3 Poor:** 😵
 
-核心仪式感功能。
+- **Logic:** Refreshes automatically at 00:00 daily. Random generation using a skewed normal distribution (mostly "Excellent/Fair," rarely "Poor").
 
-- 场景：半透明全息签筒，内有发光签
-- 交互流程：
-  1. Shake：持续摇动手腕（模拟摇签筒）
-  2. Haptics：“哗啦哗啦”的震动反馈模拟碰撞感
-  3. Drop：一支签掉落并悬浮
-  4. Reveal：签文翻转展示结果（解签）
+### 2.3 Feature 2: Decision Maker
 
-## 3. 结果等级调研与建议 (Fortune Research)
+Solves quick decisions like "Yes or No."
 
-传统签文常见 7 级（大吉、吉、中吉、小吉、末吉、凶、大凶）。作为 App，建议缩减层级并降低负面感。
+- **Trigger:** Wrist raise -> Select "Yes/No" mode.
+- **Phase 1: Prayer**
+- **Visual:** Displays **half a coin + text "Yes or No"**, followed by an **animation of a Daruma doll**.
+- **Action:** Prompt "Shake it".
 
-### 推荐方案（5 级制）
+- **Phase 2: Toss**
+- **Sensor:** Accelerometer detects vigorous shaking.
+- **Animation:** Hands open → Japanese coin flips in the air.
 
-去掉“大凶”，保留“凶”作为趣味性警示。
+- **Phase 3: Result**
+- **YES:** Coin showing "YES" (with bold black outline), crisp success sound effect.
+- **NO:** Coin showing "NO" (with bold black outline), low-pitched error sound effect.
 
-1. ⚡ ULTRA (大吉) — 概率 10%，金色传说特效，屏幕爆闪。文案例：万事皆宜，代码无 Bug，甲方无修改。
-2. 🟢 SUPER (中吉) — 概率 25%，明亮绿色霓虹。文案例：诸事顺遂，适合摸鱼。
-3. 🔵 BASIC (小吉) — 概率 40%，冷静蓝色。文案例：平稳运行，无功无过。
-4. 🟡 GLITCH (末吉/平) — 概率 15%，黄色警告色，轻微抖动。文案例：运势加载中...建议重启心情。
-5. 🔴 ERROR (凶) — 概率 10%，红色报错弹窗，明显故障艺术。文案例：宜宅家/断网；忌冲动消费。建议采用幽默化解，如“今日不宜打开工作群”。
+### 2.4 Feature 3: Cyber Fortune Sticks (Omikuji)
 
-## 4. 交互与动效细节 (UX & Animation Details)
+The core ritual feature. Adopts Japanese folk art style.
 
-### 4.1 视觉关键词
+- **Scene:** Japanese fortune stick container (flat vector style + bold black outline).
+- **Interaction Flow:**
 
-- 风格：Cyberpunk 2077 interface, HUD, FUI, Dot Matrix, Neon glow
-- 颜色：#00FF41（黑客绿）、#FF00FF（赛博粉）、#00FFFF（青色）、#111111（深黑）
+1. **Shake:** Continuously shake wrist.
+2. **Haptics:** "Rattle" vibration feedback.
+3. **Drop:** A stick drops out.
+4. **Reveal:** Stick flips to reveal the text/interpretation.
 
-### 4.2 关键动画描述
+## 3. Fortune Research & Recommendations
 
-1. 摇签动画：体现物理碰撞感；参考 Blender 刚体碰撞；掉落带有全息投影不稳定性（Hologram flicker）
-2. 硬币动画：参考《创：战纪》(Tron) 光盘质感；翻转带残影
+Traditional fortune slips usually have 7 levels. For the App, we use a 5-level system with the following probability distribution:
 
-## 5. 开发技术指标 (Technical Constraints)
+### Recommended Scheme (5 Levels)
 
-- Haptics：必须使用 Core Haptics
-  - 摇晃签筒：轻微、密集的碰撞震动
-  - 出结果：重击震动 (Heavy Impact)
-- Motion Manager：精确识别“摇一摇”，避免走路误触
-- Complications：后期支持将“今日运势”显示在原生表盘
+1. **Great Blessing (大吉)** — Probability **15%**
+2. **Middle Blessing (中吉)** — Probability **25%**
+3. **Small Blessing (小吉)** — Probability **40%**
+4. **Small Curse (小凶)** — Probability **15%**
+5. **Great Curse (大凶)** — Probability **5%**
 
-## 6. 设计与实现里程碑 (Milestones)
+_(Specific visual descriptions and copy examples for these levels are to be defined based on the new structure.)_
 
-- M1：静态 UI — 完成 Home 与每日运势静态稿
-- M2：关键动效 — 双手合十与摇签筒的关键帧
-- M3：交互联调 — 手势识别 + Haptics 联调
-- M4：求签结果 — 5 级文案与概率实现
+## 4. UX & Animation Details
 
-## 7. 验收标准 (Acceptance Criteria)
+### 4.2 Key Animation Descriptions
 
-- 首页时间格式与风格符合规范，滑动交互正常
-- 每日运势 4 项与 4 级状态正常刷新，午夜自动更新
-- 日常抉择的摇动 → 动效 → 结果流程顺畅，震动与音效匹配
-- 电子求签流程完整，Haptics 细腻，结果展示清晰
-- 结果等级严格按 5 级与设定概率分布输出
+1. **Fortune Shake:** Emphasize physical collision feel; reference Blender rigid body collision; drop has Hologram flicker.
+2. **Coin Animation:** Reference _Tron: Legacy_ disc texture; flip with trails/afterimages.
+
+## 5. Technical Constraints
+
+- **Haptics:** Must use Core Haptics.
+- **Motion Manager:** Precise detection of "Shake" to avoid false triggers while walking.
+- **Complications:** Future support for displaying "Daily Fortune" on native watch faces.
+
+## 6. Design & Implementation Milestones
+
+- **M1:** Static UI — Complete Home & Daily Luck static drafts.
+- **M2:** Key Motion — Maneki-neko, Daruma doll, and Coin flip animations.
+- **M3:** Interaction Integration — Gesture recognition + Haptics integration.
+- **M4:** Fortune Results — Implementation of 5-level probability logic.
+
+## 7. Acceptance Criteria
+
+- Home swipe interactions (Left/Right) function correctly.
+- **Daily Luck:** Shake interaction triggers the Lucky Cat animation; results refresh correctly at midnight.
+- **Decision Maker:** Daruma animation plays before shake; Yes/No results display correctly with sound.
+- **Fortune Sticks:** Results strictly follow the 15%/25%/40%/15%/5% probability distribution.

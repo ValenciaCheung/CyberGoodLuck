@@ -1,4 +1,4 @@
-# CyberOracle (赛博灵签)
+# CyberGoodLuck (赛博好运求签)
 
 Apple Watch 上的赛博玄学解压工具，结合抬腕即视、摇动手势与细腻 Haptics，提供每日运势、快速抉择与电子求签的沉浸式体验。
 
@@ -8,7 +8,9 @@ Apple Watch 上的赛博玄学解压工具，结合抬腕即视、摇动手势�
 - AI 资产产出与工具指南：`docs/AI-Asset-Production-Guide.md`
 
 ## 代码结构（可扩展）
-项目按“共享核心（可被 watchOS / iOS 复用）+ 可选后端服务 + 未来 UI App 工程”拆分，优先保证可维护性与可测试性。
+项目按"共享核心（可被 watchOS / iOS 复用）+ 可选后端服务 + 未来 UI App 工程"拆分，优先保证可维护性与可测试性。
+
+**注意**：虽然项目名称是 CyberGoodLuck，但代码中使用 `CyberOracle` 作为包名和类名前缀，以保持代码简洁性。
 
 ```
 CyberGoodLuck/
@@ -32,8 +34,8 @@ CyberGoodLuck/
 ```
 
 ## 架构要点
-- `CyberOracleDomain`：只放“是什么”（模型/枚举/协议），例如 `OracleService`、`DailyLuck`、`FortuneLevel`。
-- `CyberOracleData`：只放“怎么来”（配置加载、确定性随机、远程 API），提供两种实现：
+- `CyberOracleDomain`：只放"是什么"（模型/枚举/协议），例如 `OracleService`、`DailyLuck`、`FortuneLevel`。
+- `CyberOracleData`：只放"怎么来"（配置加载、确定性随机、远程 API），提供两种实现：
   - `LocalOracleService`：纯本地生成（适合 watch 离线、启动快、无网络依赖）
   - `RemoteOracleService`：对接后端（适合跨设备一致、后续账号/历史记录/推荐算法）
 - `apps/apple/CyberOracleAppShared`：预留 App 层（环境注入 + ViewModel），后续 watchOS/iOS UI 可以共用同一套业务调用方式。
@@ -53,8 +55,9 @@ CyberGoodLuck/
   - `POST /v1/decision/yesno`
 
 ## 设计提示关键词
-- 风格：Cyberpunk HUD/FUI，Dot Matrix，Neon glow
-- 颜色：#00FF41、#FF00FF、#00FFFF、#111111
+- 风格：Traditional Japanese folk art style mixed with modern flat vector illustration. Bold black outlines, high-contrast. ukiyo-e woodblock prints
+- 颜色：#000000 (bold black outlines - 必须), #D84236 (vermillion 朱色), #165E83 (indigo 藍色), #C89932 (ochre 黄土色), #F8F4E6 (off-white 生成色)
+- 特征：扁平色块填充 + 2-3pt 粗黑描边，高对比度配色，日式版画风格
 
 ## 如何运行
 
@@ -89,14 +92,14 @@ npm run dev
 ## 实现进度
 
 ### ✅ Sprint 1: Foundation (已完成 - 2025-12-27)
-**成果**：可运行的 watchOS App，带实时时钟 HUD
+**成果**：可运行的 watchOS App，带实时时钟显示
 - ✅ Xcode watchOS 项目创建并配置
 - ✅ Swift Package `CyberOracleCore` 集成（Domain + Data 层）
 - ✅ 所有 ViewModels 实现（DailyLuck/Decision/FortuneStick）
-- ✅ `HomeView` - 赛博时间 HUD（完整实现）
-  - 实时时钟（霓虹绿/青色）
+- ✅ `HomeView` - 日式时钟显示（完整实现）
+  - 实时时钟（朱色/藍色）
   - PRD 标准日期格式：`2025/12 / date 27`
-  - 等宽字体 + 黑色背景
+  - 粗体字型 + 黑色描边 + 高对比度背景
 - ✅ `RootNavigationView` - TabView 导航（支持左右滑动）
 - ✅ 占位 Views：DailyLuck/Decision/Fortune（Sprint 2-4）
 - ✅ Node.js 后端 API（Fastify + TypeScript）
@@ -117,11 +120,11 @@ npm run dev
 **完成任务**：
 - ✅ 实现 `DailyLuckView` 的 2x2 宫格布局（Love/Money/Career/Health）
 - ✅ 连接 `DailyLuckViewModel` 获取真实数据
-- ✅ 显示 4 个指标，带等级特定的 emoji 和颜色
-  - 🤩 极好 (great) - 霓虹绿
-  - 🙂 尚可 (good) - 蓝色
-  - 😐 一般 (ok) - 黄色
-  - 😵 较差 (bad) - 红色
+- ✅ 显示 4 个指标，带等级特定的 emoji 和颜色（高对比度配色）
+  - 🤩 极好 (great) - 朱色 (vermillion)
+  - 🙂 尚可 (good) - 藍色 (indigo)
+  - 😐 一般 (ok) - 黄土色 (ochre)
+  - 😵 较差 (bad) - 紅色 (deep red)
 - ✅ 添加午夜自动刷新逻辑（每分钟检查日期变化）
 - ✅ ScrollView + 响应式布局（适配不同 Apple Watch 尺寸）
 - ✅ Loading/Error 状态处理
@@ -170,19 +173,19 @@ npm run dev
 
 **完成任务**：
 - ✅ 实现 `FortuneView` 的 4 阶段状态机
-  - Idle（待机）：显示签筒容器 + 5 根签条
+  - Idle（待机）：显示签筒容器（带黑色描边）+ 5 根签条
   - Shaking（摇签）：容器震动动画 + 连续碰撞触觉反馈
-  - Dropping（抽签）：单根签条掉落动画 + 旋转效果
-  - Revealed（揭晓）：显示运势等级 + emoji + 文案
+  - Dropping（抽签）：单根签条掉落动画（扁平矢量风格）+ 旋转效果
+  - Revealed（揭晓）：显示运势等级（黑色描边）+ emoji + 文案
 - ✅ 创建 `FortuneStickViewModel` - 状态管理
 - ✅ 复用 `ShakeDetector` 和 `HapticEngine`
 - ✅ 集成 `fortune_levels.json` 配置
-  - 5 个等级：⚡大吉、🟢中吉、🔵小吉、🟡末吉/平、🔴凶
-  - 等级特定颜色：金色/绿色/蓝色/黄色/红色
+  - 5 个等级：⚡大吉、🔴中吉、🔵小吉、🟡末吉/平、🔴凶
+  - 等级特定颜色（带黑色描边）：金色/朱色/藍色/黄土色/紅色
   - 随机选取文案显示
 - ✅ 特殊效果实现
   - ULTRA (⚡)：闪烁动画 + 双重触觉反馈
-  - ERROR (🔴)：抖动故障效果
+  - ERROR (🔴)：抖动效果
 - ✅ 响应式布局优化（适配不同手表尺寸）
 - ✅ 点击结果重试功能
 - ✅ 模拟器调试按钮（真机自动隐藏）
