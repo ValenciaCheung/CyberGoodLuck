@@ -191,7 +191,7 @@ struct DecisionView: View {
             try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
 
             // Show result
-            await showResult()
+            showResult()
         }
     }
 

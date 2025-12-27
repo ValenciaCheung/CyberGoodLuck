@@ -9,10 +9,20 @@
 /* Begin PBXBuildFile section */
 		36BA7BD22EFFCC0F0010AA6C /* CyberOracleData in Frameworks */ = {isa = PBXBuildFile; productRef = 36BA7BD12EFFCC0F0010AA6C /* CyberOracleData */; };
 		36BA7BD42EFFCC0F0010AA6C /* CyberOracleDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 36BA7BD32EFFCC0F0010AA6C /* CyberOracleDomain */; };
+		36BA7C4C2EFFF1E70010AA6C /* ShakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BA7C462EFFF1E70010AA6C /* ShakeDetector.swift */; };
+		36BA7C4D2EFFF1E70010AA6C /* FortuneStickViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BA7C4A2EFFF1E70010AA6C /* FortuneStickViewModel.swift */; };
+		36BA7C4E2EFFF1E70010AA6C /* DailyLuckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BA7C482EFFF1E70010AA6C /* DailyLuckViewModel.swift */; };
+		36BA7C4F2EFFF1E70010AA6C /* DecisionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BA7C492EFFF1E70010AA6C /* DecisionViewModel.swift */; };
+		36BA7C502EFFF1E70010AA6C /* HapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BA7C442EFFF1E70010AA6C /* HapticEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		36BA7BBC2EFFCB210010AA6C /* CyberOracleWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CyberOracleWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		36BA7C442EFFF1E70010AA6C /* HapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticEngine.swift; sourceTree = "<group>"; };
+		36BA7C462EFFF1E70010AA6C /* ShakeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeDetector.swift; sourceTree = "<group>"; };
+		36BA7C482EFFF1E70010AA6C /* DailyLuckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyLuckViewModel.swift; sourceTree = "<group>"; };
+		36BA7C492EFFF1E70010AA6C /* DecisionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecisionViewModel.swift; sourceTree = "<group>"; };
+		36BA7C4A2EFFF1E70010AA6C /* FortuneStickViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortuneStickViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -23,6 +33,7 @@
 				Motion/ShakeDetector.swift,
 				ViewModels/DailyLuckViewModel.swift,
 				ViewModels/DecisionViewModel.swift,
+				ViewModels/FortuneStickViewModel.swift,
 			);
 			target = 36BA7BBB2EFFCB210010AA6C /* CyberOracleWatch Watch App */;
 		};
@@ -55,6 +66,9 @@
 		36BA7BAF2EFFCB210010AA6C = {
 			isa = PBXGroup;
 			children = (
+				36BA7C452EFFF1E70010AA6C /* Haptics */,
+				36BA7C472EFFF1E70010AA6C /* Motion */,
+				36BA7C4B2EFFF1E70010AA6C /* ViewModels */,
 				36BA7BC02EFFCB210010AA6C /* CyberOracleWatch Watch App */,
 				36BA7BB72EFFCB210010AA6C /* Products */,
 			);
@@ -66,6 +80,35 @@
 				36BA7BBC2EFFCB210010AA6C /* CyberOracleWatch Watch App.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		36BA7C452EFFF1E70010AA6C /* Haptics */ = {
+			isa = PBXGroup;
+			children = (
+				36BA7C442EFFF1E70010AA6C /* HapticEngine.swift */,
+			);
+			name = Haptics;
+			path = "CyberOracleWatch Watch App/Haptics";
+			sourceTree = "<group>";
+		};
+		36BA7C472EFFF1E70010AA6C /* Motion */ = {
+			isa = PBXGroup;
+			children = (
+				36BA7C462EFFF1E70010AA6C /* ShakeDetector.swift */,
+			);
+			name = Motion;
+			path = "CyberOracleWatch Watch App/Motion";
+			sourceTree = "<group>";
+		};
+		36BA7C4B2EFFF1E70010AA6C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				36BA7C482EFFF1E70010AA6C /* DailyLuckViewModel.swift */,
+				36BA7C492EFFF1E70010AA6C /* DecisionViewModel.swift */,
+				36BA7C4A2EFFF1E70010AA6C /* FortuneStickViewModel.swift */,
+			);
+			name = ViewModels;
+			path = "CyberOracleWatch Watch App/ViewModels";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +191,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36BA7C4C2EFFF1E70010AA6C /* ShakeDetector.swift in Sources */,
+				36BA7C4D2EFFF1E70010AA6C /* FortuneStickViewModel.swift in Sources */,
+				36BA7C4E2EFFF1E70010AA6C /* DailyLuckViewModel.swift in Sources */,
+				36BA7C4F2EFFF1E70010AA6C /* DecisionViewModel.swift in Sources */,
+				36BA7C502EFFF1E70010AA6C /* HapticEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,9 +1,9 @@
 # CyberOracle - Project Context & Implementation Guide
 
 > **Last Updated**: 2025-12-27
-> **Status**: Sprint 3 Complete ✅ → Ready for Sprint 4 (Fortune Sticks)
+> **Status**: Sprint 4 Complete ✅ → Ready for Sprint 5 (Visual Polish)
 > **Target Platform**: Apple Watch (watchOS 10+), scalable to iPhone
-> **Latest Commit**: Sprint 3 - Decision Maker with shake detection & haptics
+> **Latest Commit**: Sprint 4 - Fortune Sticks with 4-stage flow & fortune levels
 
 ---
 
@@ -101,10 +101,25 @@
 - **DecisionViewModel**: Copied to watch app ViewModels folder
 - **Animations**: Rotation, scale, spring effects
 
-### What's Missing (Sprint 4+)
+#### 9. watchOS App - Sprint 4 (100% - COMPLETE ✅)
+- **FortuneView** (FULLY IMPLEMENTED):
+  - ✅ 4-stage state machine: Idle → Shaking → Dropping → Revealed
+  - ✅ Stick container visualization (60x70 with 5 sticks)
+  - ✅ Shaking animation with 8 collision haptics
+  - ✅ Dropping animation with rotation (15°)
+  - ✅ Fortune reveal with emoji, label, copy text
+  - ✅ 5 fortune levels from fortune_levels.json
+  - ✅ Level-specific colors (Gold/Green/Blue/Yellow/Red)
+  - ✅ Special effects: ULTRA (flash), ERROR (glitch)
+  - ✅ Tap to retry functionality
+  - ✅ Simulator debug button
+- **FortuneStickViewModel**: Copied to watch app ViewModels folder
+- **Fortune Levels Integration**: Complete fortune_levels.json parsing
+- **Responsive Layout**: ScrollView + sized for watch screens
 
-❌ **Fortune Sticks** (Sprint 4 - Next: 4-stage flow + shake + haptics)
-❌ **Cyberpunk visual polish** (Sprint 5 - neon glow, glitch effects)
+### What's Missing (Sprint 5+)
+
+❌ **Cyberpunk visual polish** (Sprint 5 - Next: neon glow, glitch effects, HUD elements)
 ❌ **Sound effects** (Sprint 6)
 
 ---
@@ -266,27 +281,44 @@ Domain (What) → Data (How) → App (Presentation)
 
 ---
 
-#### 🚧 **Sprint 4: Fortune Sticks** (NEXT)
+#### ✅ **Sprint 4: Fortune Sticks** (COMPLETE - 2025-12-27)
 
-**Goal**: Full fortune-telling experience with 4-stage flow
+**What Was Built**:
+- `FortuneView.swift`: 4-stage fortune-telling flow (359 lines)
+- `FortuneStickViewModel.swift`: Copied to watch app ViewModels
+- Complete integration with `fortune_levels.json` (5 fortune levels)
+- Reused `ShakeDetector` and `HapticEngine` from Sprint 3
+- Special effects for ULTRA and ERROR fortune levels
 
-**Tasks**:
-- Implement `FortuneView.swift` (4-stage state machine)
-  - Stage 1: Shake prompt with cylinder visualization
-  - Stage 2: Shaking feedback with collision haptics
-  - Stage 3: Stick drop animation
-  - Stage 4: Fortune reveal with level-specific effects
-- Create `FortuneStickViewModel.swift` (copy to watch app)
-- Reuse `ShakeDetector` from Sprint 3
-- Extend `HapticEngine` with fortune-specific patterns
-- Load and display copy text from `fortune_levels.json`
-- Special effects for ULTRA (flash) and ERROR (glitch)
+**Files Created/Modified**:
+- Modified: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/FortuneView.swift`
+- Created: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/ViewModels/FortuneStickViewModel.swift`
 
-**Files to Modify/Create**:
-- Modify: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/FortuneView.swift`
-- Create: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/ViewModels/FortuneStickViewModel.swift`
+**4-Stage Flow Implementation**:
+1. **Idle**: Stick container (60x70) with 5 vertical sticks, shake intensity indicator, simulator button
+2. **Shaking**: Vibrating container animation, 8 rapid collision haptics (0.1s intervals)
+3. **Dropping**: Single stick drops with rotation (15°), drop haptic
+4. **Revealed**: Fortune emoji + label + copy text + timestamp, tap to retry
 
-**Validation**: Shake → see fortune stick drop → reveal level with haptic feedback and copy text
+**Fortune Levels** (from fortune_levels.json):
+- ⚡ ULTRA (大吉) - Gold #FFD700 - Flash animation + double haptic
+- 🟢 SUPER (中吉) - Neon green #00FF41
+- 🔵 BASIC (小吉) - Blue #00A0FF
+- 🟡 GLITCH (末吉/平) - Yellow #FFC107
+- 🔴 ERROR (凶) - Red #FF2D55 - Glitch/shake effect
+
+**Challenges Solved**:
+- Layout overflow on small watch screens → Added ScrollView + reduced container size (80x100 → 60x70)
+- File references broken after Xcode clean → Re-added all ViewModels/Motion/Haptics folders to project
+- Missing simulator button → Made button more prominent with border and bold text
+- Async warnings → Removed unnecessary `await` on @MainActor functions
+
+**Lessons Learned**:
+- Xcode Clean Build Folder can break file references - need to re-add files to project
+- Watch screen size constraints require careful sizing (60-70pt height max for containers)
+- ScrollView essential for content that varies in height across different stages
+- Simulator button visibility critical - use borders and bold text, not just small gray text
+- fortune_levels.json integration works perfectly for dynamic fortune content
 
 ---
 
