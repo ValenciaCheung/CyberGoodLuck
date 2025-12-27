@@ -24,30 +24,34 @@ struct DailyLuckView: View {
         ZStack {
             Color.black.ignoresSafeArea()
 
-            VStack(spacing: 16) {
-                // Title
-                Text("DAILY LUCK")
-                    .font(.system(size: 18, weight: .bold, design: .monospaced))
-                    .foregroundColor(neonGreen)
+            ScrollView {
+                VStack(spacing: 12) {
+                    // Title
+                    Text("DAILY LUCK")
+                        .font(.system(size: 16, weight: .bold, design: .monospaced))
+                        .foregroundColor(neonGreen)
 
-                // Date display
-                Text(formattedDate)
-                    .font(.system(size: 12, design: .monospaced))
-                    .foregroundColor(.gray)
+                    // Date display
+                    Text(formattedDate)
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundColor(.gray)
 
-                // Content based on state
-                switch viewModel.state {
-                case .idle:
-                    loadingIndicator
-                case .loading:
-                    loadingIndicator
-                case .loaded(let luck):
-                    luckGrid(luck: luck)
-                case .failed:
-                    errorView
+                    // Content based on state
+                    switch viewModel.state {
+                    case .idle:
+                        loadingIndicator
+                    case .loading:
+                        loadingIndicator
+                    case .loaded(let luck):
+                        luckGrid(luck: luck)
+                            .padding(.top, 4)
+                    case .failed:
+                        errorView
+                    }
                 }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
             }
-            .padding()
         }
         .task {
             // Load data when view appears
@@ -62,12 +66,12 @@ struct DailyLuckView: View {
 
     @ViewBuilder
     private func luckGrid(luck: DailyLuck) -> some View {
-        VStack(spacing: 12) {
-            HStack(spacing: 12) {
+        VStack(spacing: 8) {
+            HStack(spacing: 8) {
                 metricCard(metric: .love, tier: luck.metrics[.love] ?? .ok)
                 metricCard(metric: .money, tier: luck.metrics[.money] ?? .ok)
             }
-            HStack(spacing: 12) {
+            HStack(spacing: 8) {
                 metricCard(metric: .career, tier: luck.metrics[.career] ?? .ok)
                 metricCard(metric: .health, tier: luck.metrics[.health] ?? .ok)
             }
@@ -78,27 +82,30 @@ struct DailyLuckView: View {
 
     @ViewBuilder
     private func metricCard(metric: DailyLuckMetric, tier: DailyLuckTier) -> some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 3) {
             // Emoji for metric type
             Text(emoji(for: metric))
-                .font(.system(size: 24))
+                .font(.system(size: 20))
 
             // Tier emoji (status)
             Text(tierEmoji(for: tier))
-                .font(.system(size: 20))
+                .font(.system(size: 18))
 
             // Metric label
             Text(label(for: metric))
-                .font(.system(size: 9, weight: .medium, design: .monospaced))
+                .font(.system(size: 8, weight: .medium, design: .monospaced))
                 .foregroundColor(color(for: tier))
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 8)
+        .padding(.vertical, 6)
+        .padding(.horizontal, 4)
         .background(
-            RoundedRectangle(cornerRadius: 8)
+            RoundedRectangle(cornerRadius: 6)
                 .fill(Color.white.opacity(0.05))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 8)
+                    RoundedRectangle(cornerRadius: 6)
                         .stroke(color(for: tier).opacity(0.3), lineWidth: 1)
                 )
         )
