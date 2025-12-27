@@ -111,23 +111,61 @@ npm run dev
 
 ---
 
-### 🚧 Sprint 2: Daily Luck (进行中)
-**目标**：实现每日运势显示，连接 `DailyLuckViewModel`
+### ✅ Sprint 2: Daily Luck (已完成 - 2025-12-27)
+**成果**：完整的每日运势显示，带自动刷新
 
-**计划任务**：
-- [ ] 实现 `DailyLuckView` 的 4 宫格布局
-- [ ] 连接 `DailyLuckViewModel` 获取真实数据
-- [ ] 显示 4 个指标（Love/Money/Career/Health）
-- [ ] 根据等级显示不同颜色和 emoji
-- [ ] 添加午夜自动刷新逻辑
-- [ ] 测试确定性算法（同一天结果一致）
+**完成任务**：
+- ✅ 实现 `DailyLuckView` 的 2x2 宫格布局（Love/Money/Career/Health）
+- ✅ 连接 `DailyLuckViewModel` 获取真实数据
+- ✅ 显示 4 个指标，带等级特定的 emoji 和颜色
+  - 🤩 极好 (great) - 霓虹绿
+  - 🙂 尚可 (good) - 蓝色
+  - 😐 一般 (ok) - 黄色
+  - 😵 较差 (bad) - 红色
+- ✅ 添加午夜自动刷新逻辑（每分钟检查日期变化）
+- ✅ ScrollView + 响应式布局（适配不同 Apple Watch 尺寸）
+- ✅ Loading/Error 状态处理
 
-**参考文档**：`docs/PRD-CyberOracle.md` § 2.2
+**验证**：
+- ✅ 在 Apple Watch 模拟器成功显示
+- ✅ 同一天结果一致（确定性算法）
+- ✅ 布局适配不同手表尺寸
+
+**提交**：`ad3bb5b` - feat: Complete Sprint 2
+
+---
+
+### ✅ Sprint 3: Decision Maker (已完成 - 2025-12-27)
+**成果**：完整的 Yes/No 决策功能，带震动反馈
+
+**完成任务**：
+- ✅ 实现 `DecisionView` 的 3 阶段状态机
+  - Prayer（祈祷）：显示 🙏 + "Shake it" 提示
+  - Tossing（投掷）：💫 旋转动画 + "Deciding..."
+  - Result（结果）：✅ YES (绿色) / ❌ NO (红色)
+- ✅ 创建 `ShakeDetector.swift` - CoreMotion 震动检测
+  - 加速度阈值：2.5g
+  - 震动强度可视化指示器
+- ✅ 创建 `HapticEngine.swift` - 触觉反馈引擎
+  - Coin flip haptic（投掷）
+  - Success/Failure haptics（结果）
+- ✅ 完整动画实现
+  - 旋转动画（360° × 3 圈）
+  - 缩放动画（弹簧效果）
+- ✅ "Again" 按钮重置功能
+- ✅ 模拟器调试按钮（真机自动隐藏）
+
+**验证**：
+- ✅ 在 Apple Watch 模拟器成功运行
+- ✅ 3 阶段流程流畅切换
+- ✅ 动画效果正常
+- ✅ 触觉反馈正常触发
+
+**注意**：watchOS 模拟器不支持真实震动检测，已添加仅限模拟器的调试按钮。真机部署后震动检测将正常工作。
 
 ---
 
 ### 🎯 后续 Sprints（实现节奏）
-- **Sprint 3**：Decision Maker（日常抉择）- CoreMotion + Haptics
 - **Sprint 4**：Fortune Sticks（电子求签）- 完整交互流程
 - **Sprint 5**：Visual Polish（赛博朋克视觉效果）
 - **Sprint 6**：Sound & Final Polish（音效与最终打磨）

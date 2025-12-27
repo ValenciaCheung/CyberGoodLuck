@@ -15,9 +15,25 @@
 		36BA7BBC2EFFCB210010AA6C /* CyberOracleWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CyberOracleWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		36BA7C0B2EFFE1640010AA6C /* Exceptions for "CyberOracleWatch Watch App" folder in "CyberOracleWatch Watch App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Haptics/HapticEngine.swift,
+				Motion/ShakeDetector.swift,
+				ViewModels/DailyLuckViewModel.swift,
+				ViewModels/DecisionViewModel.swift,
+			);
+			target = 36BA7BBB2EFFCB210010AA6C /* CyberOracleWatch Watch App */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		36BA7BC02EFFCB210010AA6C /* CyberOracleWatch Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				36BA7C0B2EFFE1640010AA6C /* Exceptions for "CyberOracleWatch Watch App" folder in "CyberOracleWatch Watch App" target */,
+			);
 			path = "CyberOracleWatch Watch App";
 			sourceTree = "<group>";
 		};

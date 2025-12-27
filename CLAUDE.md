@@ -1,9 +1,9 @@
 # CyberOracle - Project Context & Implementation Guide
 
 > **Last Updated**: 2025-12-27
-> **Status**: Sprint 1 Complete ✅ → Ready for Sprint 2 (Daily Luck)
+> **Status**: Sprint 3 Complete ✅ → Ready for Sprint 4 (Fortune Sticks)
 > **Target Platform**: Apple Watch (watchOS 10+), scalable to iPhone
-> **Current Commit**: `de01d5e` - Sprint 1 Foundation Complete
+> **Latest Commit**: Sprint 3 - Decision Maker with shake detection & haptics
 
 ---
 
@@ -55,7 +55,7 @@
 - ✅ OpenAPI contract: `contracts/oracle-api.openapi.json`
 - ✅ Comprehensive PRD: `docs/PRD-CyberOracle.md`
 
-#### 6. watchOS App - Sprint 1 (100% - WORKING!)
+#### 6. watchOS App - Sprint 1 (100% - COMPLETE ✅)
 - **Xcode Project**: `apps/apple/CyberOracleWatch/`
   - ✅ Xcode project created and configured
   - ✅ CyberOracleCore package linked
@@ -70,13 +70,40 @@
   - ✅ Cyberpunk colors: neon green (#00FF41), cyan (#00FFFF)
   - ✅ Monospace fonts
   - ✅ Black background
-- **Placeholder Views**: DailyLuckView, DecisionView, FortuneView
 
-### What's Missing (Sprint 2+)
+#### 7. watchOS App - Sprint 2 (100% - COMPLETE ✅)
+- **DailyLuckView** (FULLY IMPLEMENTED):
+  - ✅ 2x2 grid layout for 4 metrics (Love/Money/Career/Health)
+  - ✅ Connected to DailyLuckViewModel
+  - ✅ Tier-based emojis: 🤩 great, 🙂 good, 😐 ok, 😵 bad
+  - ✅ Color-coded by tier: green/blue/yellow/red
+  - ✅ Midnight auto-refresh (checks every minute)
+  - ✅ ScrollView + responsive layout (adapts to watch sizes)
+  - ✅ Loading/error states
+- **DailyLuckViewModel**: Copied to watch app ViewModels folder
 
-🚧 **Daily Luck View** (Sprint 2 - Next)
-❌ **Decision Maker** (Sprint 3 - Motion/shake detection + CoreMotion)
-❌ **Fortune Sticks** (Sprint 4 - Haptics + animations)
+#### 8. watchOS App - Sprint 3 (100% - COMPLETE ✅)
+- **DecisionView** (FULLY IMPLEMENTED):
+  - ✅ 3-stage state machine: Prayer → Tossing → Result
+  - ✅ Prayer stage: 🙏 + "Shake it" + shake intensity bars
+  - ✅ Tossing stage: 💫 spin animation (3 rotations)
+  - ✅ Result stage: ✅ YES (green) / ❌ NO (red)
+  - ✅ "Again" button to reset
+  - ✅ Simulator debug button (auto-hidden on real device)
+- **ShakeDetector** (`Motion/ShakeDetector.swift`):
+  - ✅ CoreMotion accelerometer integration
+  - ✅ 2.5g threshold detection
+  - ✅ Shake intensity publishing
+- **HapticEngine** (`Haptics/HapticEngine.swift`):
+  - ✅ Coin flip haptic
+  - ✅ Success/failure haptics
+  - ✅ Generic patterns (ready for Fortune Sticks)
+- **DecisionViewModel**: Copied to watch app ViewModels folder
+- **Animations**: Rotation, scale, spring effects
+
+### What's Missing (Sprint 4+)
+
+❌ **Fortune Sticks** (Sprint 4 - Next: 4-stage flow + shake + haptics)
 ❌ **Cyberpunk visual polish** (Sprint 5 - neon glow, glitch effects)
 ❌ **Sound effects** (Sprint 6)
 
@@ -185,57 +212,81 @@ Domain (What) → Data (How) → App (Presentation)
 
 ---
 
-#### 🚧 **Sprint 2: Daily Luck** (IN PROGRESS)
+#### ✅ **Sprint 2: Daily Luck** (COMPLETE - 2025-12-27)
+
+**What Was Built**:
+- `DailyLuckView.swift`: 2x2 grid layout with 4 luck metrics
+- `DailyLuckViewModel.swift`: Copied to watch app ViewModels
+- Midnight auto-refresh using Timer.publish
+- ScrollView for responsive layout across watch sizes
+- Color-coded tiers with emojis
+
+**Files Created/Modified**:
+- Modified: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/DailyLuckView.swift`
+- Created: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/ViewModels/DailyLuckViewModel.swift`
+
+**Challenges Solved**:
+- Layout overflow on smaller watch screens → Added ScrollView + reduced spacing/font sizes
+- Missing ViewModel → Copied from CyberOracleAppShared to watch app target
+- Added `.minimumScaleFactor(0.7)` for text adaptability
+
+**Lessons Learned**:
+- ViewModels need to be in watch app target, not just in shared package
+- ScrollView essential for content that may overflow on smaller watches
+- Test on different watch simulator sizes (38mm, 40mm, 41mm, 44mm, 45mm)
 
 ---
 
-#### **Sprint 2: Daily Luck** (Phase 3)
-**Goal**: Functional daily luck display
+#### ✅ **Sprint 3: Decision Maker** (COMPLETE - 2025-12-27)
 
-- Implement `DailyLuckView.swift`
-- Connect to existing `DailyLuckViewModel`
-- Display 4 metrics in grid layout
-- Add midnight auto-refresh logic
+**What Was Built**:
+- `DecisionView.swift`: 3-stage state machine with animations
+- `ShakeDetector.swift`: CoreMotion accelerometer monitoring
+- `HapticEngine.swift`: Centralized haptic feedback manager
+- `DecisionViewModel.swift`: Copied to watch app ViewModels
+- Simulator debug button (auto-hidden on real device)
 
-**Files to Modify/Create**:
-- Modify: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/DailyLuckView.swift`
-- Create: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/Components/LuckMetricCard.swift`
+**Files Created/Modified**:
+- Modified: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/DecisionView.swift`
+- Created: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Motion/ShakeDetector.swift`
+- Created: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Haptics/HapticEngine.swift`
+- Created: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/ViewModels/DecisionViewModel.swift`
 
-**Validation**: Daily luck shows different values each day, refreshes at midnight
+**Challenges Solved**:
+- watchOS simulator doesn't support shake gestures → Added `#if targetEnvironment(simulator)` debug button
+- Duplicate build files → Removed duplicates from Build Phases → Compile Sources
+- Haptics on watchOS → Use WKInterfaceDevice.current().play() instead of UIKit's UINotificationFeedbackGenerator
 
----
-
-#### **Sprint 3: Decision Maker** (Phase 4)
-**Goal**: Yes/No decision with shake gesture
-
-- Implement `DecisionView.swift` (3-stage state machine)
-- Create `ShakeDetector.swift` (CoreMotion)
-- Add `HapticEngine.swift` (basic haptics)
-- Implement animations (prayer → toss → result)
-
-**Files to Modify/Create**:
-- Modify: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/DecisionView.swift`
-- Create: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Motion/ShakeDetector.swift`
-- Create: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Haptics/HapticEngine.swift`
-
-**Validation**: Shake watch → see YES/NO result with haptic feedback
+**Lessons Learned**:
+- Apple Watch simulator has NO shake support (unlike iPhone simulator)
+- Use `#if targetEnvironment(simulator)` for debug-only UI elements
+- CoreMotion works differently on watchOS - accelerometer data is available but shake gesture events are not
+- WatchKit haptics are simpler than iOS Core Haptics (use built-in patterns)
+- Always test motion/haptic features on real hardware for accurate experience
 
 ---
 
-#### **Sprint 4: Fortune Sticks** (Phase 5)
-**Goal**: Full fortune-telling experience
+#### 🚧 **Sprint 4: Fortune Sticks** (NEXT)
 
-- Implement `FortuneView.swift` (4-stage flow)
+**Goal**: Full fortune-telling experience with 4-stage flow
+
+**Tasks**:
+- Implement `FortuneView.swift` (4-stage state machine)
+  - Stage 1: Shake prompt with cylinder visualization
+  - Stage 2: Shaking feedback with collision haptics
+  - Stage 3: Stick drop animation
+  - Stage 4: Fortune reveal with level-specific effects
+- Create `FortuneStickViewModel.swift` (copy to watch app)
 - Reuse `ShakeDetector` from Sprint 3
-- Create fortune-specific haptic patterns
-- Implement animations (shake → drop → reveal)
-- Display fortune result with copy text from `fortune_levels.json`
+- Extend `HapticEngine` with fortune-specific patterns
+- Load and display copy text from `fortune_levels.json`
+- Special effects for ULTRA (flash) and ERROR (glitch)
 
 **Files to Modify/Create**:
 - Modify: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/FortuneView.swift`
-- Create: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Haptics/FortuneHapticPatterns.swift`
+- Create: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/ViewModels/FortuneStickViewModel.swift`
 
-**Validation**: Shake → see fortune level with appropriate text
+**Validation**: Shake → see fortune stick drop → reveal level with haptic feedback and copy text
 
 ---
 
