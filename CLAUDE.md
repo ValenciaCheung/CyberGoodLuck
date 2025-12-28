@@ -1,9 +1,9 @@
 # CyberGoodLuck - Project Context & Implementation Guide
 
 > **Last Updated**: 2025-12-27
-> **Status**: Sprint 4 Complete ✅ → Ready for Sprint 5 (Visual Polish)
+> **Status**: Sprint 5 In Progress 🚧 - Asset Integration & Visual Polish
 > **Target Platform**: Apple Watch (watchOS 10+), scalable to iPhone
-> **Latest Commit**: Sprint 4 - Fortune Sticks with 4-stage flow & fortune levels
+> **Latest Commit**: Sprint 5 Phase 1 - Asset preparation (21 PNGs + 3 MP4s)
 
 ---
 
@@ -117,10 +117,13 @@
 - **Fortune Levels Integration**: Complete fortune_levels.json parsing
 - **Responsive Layout**: ScrollView + sized for watch screens
 
-### What's Missing (Sprint 5+)
+### What's In Progress
 
-❌ **Japanese folk art visual polish** (Sprint 5 - Next: bold outlines, flat vector styling, traditional patterns)
-❌ **Sound effects** (Sprint 6)
+🚧 **Sprint 5: Asset Integration** - Replacing placeholder UI with pre-rendered Japanese folk art assets (21 PNGs + 3 MP4 transition videos)
+
+### What's Upcoming
+
+❌ **Sprint 6: Sound effects** - Audio feedback + final polish
 
 ---
 
@@ -191,158 +194,122 @@ Domain (What) → Data (How) → App (Presentation)
 
 ## 📊 Sprint Progress Tracker
 
-### 6-Sprint Roadmap
+### Completed Sprints (1-4) ✅
 
-#### ✅ **Sprint 1: Foundation** (COMPLETED - 2025-12-27)
-**Goal**: Working Xcode project with navigation
+**Sprint 1: Foundation** - Xcode project, navigation, HomeView with real-time clock
+**Sprint 2: Daily Luck** - 4-metric grid, midnight refresh, responsive layout
+**Sprint 3: Decision Maker** - 3-stage state machine, shake detection, haptics
+**Sprint 4: Fortune Sticks** - 4-stage flow, 5 fortune levels, placeholder UI
 
-**Achievements**:
-
-- ✅ Created watchOS Xcode project (`CyberOracleWatch`)
-- ✅ Linked `CyberOracleCore` Swift Package (Domain + Data)
-- ✅ Setup TabView navigation (swipe left/right)
-- ✅ Implemented HomeView with **real-time clock**:
-  - ✅ Bold time display with black outlines (HH:mm:ss)
-  - ✅ PRD-compliant date format (`2025/12 / date 27`)
-  - ✅ Japanese folk art colors (vermillion #D84236, indigo #165E83)
-  - ✅ Updates every second via Timer
-- ✅ Created placeholder views (DailyLuck, Decision, Fortune)
-- ✅ Fixed bundle identifier (removed `.watchkitapp`)
-- ✅ Added `.gitignore` (protects npm cache, Xcode user files)
-
-**Files Created**:
-- `apps/apple/CyberOracleWatch/CyberOracleWatch.xcodeproj`
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Navigation/RootNavigationView.swift`
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/HomeView.swift` (FULLY IMPLEMENTED)
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/DailyLuckView.swift` (placeholder)
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/DecisionView.swift` (placeholder)
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/FortuneView.swift` (placeholder)
-
-**Validation**: ✅ App runs on Apple Watch simulator, navigation works, time updates live
-
-**Commit**: `de01d5e` - feat: Complete Sprint 1
-
-**Lessons Learned**:
-- Bundle identifier must NOT include `.watchkitapp` suffix (modern watchOS apps)
-- HomeView needs `import Combine` for Timer.autoconnect()
-- Always add `.gitignore` early to avoid committing build artifacts
+**Key Files Created**:
+- `Views/`: HomeView, DailyLuckView, DecisionView, FortuneView (all functional)
+- `ViewModels/`: DailyLuckViewModel, DecisionViewModel, FortuneStickViewModel
+- `Motion/ShakeDetector.swift` - CoreMotion accelerometer integration
+- `Haptics/HapticEngine.swift` - Centralized haptic feedback
 
 ---
 
-#### ✅ **Sprint 2: Daily Luck** (COMPLETE - 2025-12-27)
+### 🚧 Sprint 5: Asset Integration & Visual Polish (IN PROGRESS)
 
-**What Was Built**:
-- `DailyLuckView.swift`: 2x2 grid layout with 4 luck metrics
-- `DailyLuckViewModel.swift`: Copied to watch app ViewModels
-- Midnight auto-refresh using Timer.publish
-- ScrollView for responsive layout across watch sizes
-- Color-coded tiers with emojis
+**Goal**: Replace placeholder UI with pre-rendered Japanese folk art assets
 
-**Files Created/Modified**:
-- Modified: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/DailyLuckView.swift`
-- Created: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/ViewModels/DailyLuckViewModel.swift`
+#### Asset Inventory
 
-**Challenges Solved**:
-- Layout overflow on smaller watch screens → Added ScrollView + reduced spacing/font sizes
-- Missing ViewModel → Copied from CyberOracleAppShared to watch app target
-- Added `.minimumScaleFactor(0.7)` for text adaptability
+**21 Static PNGs** (~3.5MB):
+- PNG 13-16: Core UI states (idle, postshake, decorated, answer)
+- PNG 17-21: Fortune categories (ULTRA/SUPER/BASIC/GLITCH/ERROR)
+- PNG 22-26: Intermediate results (1:1 mapped to categories)
+- PNG 27-28: Daruma transition screens
+- PNG 29-33: Final fortune results (randomly selected)
 
-**Lessons Learned**:
-- ViewModels need to be in watch app target, not just in shared package
-- ScrollView essential for content that may overflow on smaller watches
-- Test on different watch simulator sizes (38mm, 40mm, 41mm, 44mm, 45mm)
+**3 Transition Videos** (~15MB):
+- `fortune_shake_transition.mp4`: PNG 13 → 14 (2s)
+- `fortune_container_to_answer.mp4`: PNG 15 → 16 (2s)
+- `fortune_daruma_transition.mp4`: PNG 27 → 28 (2s)
 
----
+#### Complete 12-Stage Flow
 
-#### ✅ **Sprint 3: Decision Maker** (COMPLETE - 2025-12-27)
+```
+1. idle (PNG 13) → "Shake" prompt
+2. shakeTransition (Video) → Fortune shake animation
+3. postShake (PNG 14) → Container without text
+4. decoratedShake (PNG 15) → 8x collision haptics
+5. containerToAnswer (Video) → Container transition
+6. answerScreen (PNG 16) → "answer" screen + API call
+7. categoryReveal (PNG 17-21) → Fortune category by level
+8. intermediateResult (PNG 22-26) → 1:1 mapped result
+9. daruma1 (PNG 27) → First Daruma screen
+10. darumaTransition (Video) → Daruma animation
+11. daruma2 (PNG 28) → Second Daruma screen
+12. finalResult (PNG 29-33) → Random final + haptic
 
-**What Was Built**:
-- `DecisionView.swift`: 3-stage state machine with animations
-- `ShakeDetector.swift`: CoreMotion accelerometer monitoring
-- `HapticEngine.swift`: Centralized haptic feedback manager
-- `DecisionViewModel.swift`: Copied to watch app ViewModels
-- Simulator debug button (auto-hidden on real device)
+Total flow: ~10-12 seconds
+```
 
-**Files Created/Modified**:
-- Modified: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/DecisionView.swift`
-- Created: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Motion/ShakeDetector.swift`
-- Created: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Haptics/HapticEngine.swift`
-- Created: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/ViewModels/DecisionViewModel.swift`
+#### Implementation Phases (7 Total)
 
-**Challenges Solved**:
-- watchOS simulator doesn't support shake gestures → Added `#if targetEnvironment(simulator)` debug button
-- Duplicate build files → Removed duplicates from Build Phases → Compile Sources
-- Haptics on watchOS → Use WKInterfaceDevice.current().play() instead of UIKit's UINotificationFeedbackGenerator
+**✅ Phase 1: Asset Preparation** (COMPLETE)
+- [x] Created Fortune folder structure in Assets.xcassets
+- [x] Created 21 image sets with proper naming
+- [x] Copied all PNGs into imagesets
+- [x] Created Resources/Videos directory
+- [x] Copied and renamed 3 MP4 files
+- [ ] Add Resources folder to Xcode project (requires IDE)
+- [ ] Verify target membership and build
 
-**Lessons Learned**:
-- Apple Watch simulator has NO shake support (unlike iPhone simulator)
-- Use `#if targetEnvironment(simulator)` for debug-only UI elements
-- CoreMotion works differently on watchOS - accelerometer data is available but shake gesture events are not
-- WatchKit haptics are simpler than iOS Core Haptics (use built-in patterns)
-- Always test motion/haptic features on real hardware for accurate experience
+**Phase 2: Video Player Component** (Pending)
+- Create `VideoPlayerView.swift` with AVPlayer
+- Auto-play on appear, detect completion via NotificationCenter
+- Error handling and fallback
+- Test video playback on simulator
 
----
+**Phase 3: State Machine Refactor** (Pending)
+- Replace `UIState` → `FortuneFlowState` enum (12 cases)
+- Add state variables: flowState, selectedFortuneLevel, selectedFinalIndex
+- Refactor body switch statement (12 cases)
+- Implement 9 state transition functions
+- Add image name mapping functions
 
-#### ✅ **Sprint 4: Fortune Sticks** (COMPLETE - 2025-12-27)
+**Phase 4: Video Integration** (Pending)
+- Replace video state stubs with VideoPlayerView
+- Test 12-stage flow on simulator
+- Verify smooth transitions PNG → Video → PNG
 
-**What Was Built**:
-- `FortuneView.swift`: 4-stage fortune-telling flow (359 lines)
-- `FortuneStickViewModel.swift`: Copied to watch app ViewModels
-- Complete integration with `fortune_levels.json` (5 fortune levels)
-- Reused `ShakeDetector` and `HapticEngine` from Sprint 3
-- Special effects for ULTRA and ERROR fortune levels
+**Phase 5: Haptic Integration** (Pending)
+- Relocate shake haptics to decoratedShake state
+- Fortune reveal haptic in finalResult state
+- Remove old haptic code
 
-**Files Created/Modified**:
-- Modified: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Views/FortuneView.swift`
-- Created: `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/ViewModels/FortuneStickViewModel.swift`
+**Phase 6: Polish & Optimization** (Pending)
+- Performance testing on different watch sizes
+- Asset optimization (compress PNGs if needed)
+- Edge case testing
 
-**4-Stage Flow Implementation**:
-1. **Idle**: Stick container (60x70) with 5 vertical sticks, shake intensity indicator, simulator button
-2. **Shaking**: Vibrating container animation, 8 rapid collision haptics (0.1s intervals)
-3. **Dropping**: Single stick drops with rotation (15°), drop haptic
-4. **Revealed**: Fortune emoji + label + copy text + timestamp, tap to retry
+**Phase 7: Testing & Validation** (Pending)
+- Complete 10+ fortune draws on real device
+- Verify all 5 fortune levels
+- Verify 1:1 mapping and random selection
+- Regression testing
 
-**Fortune Levels** (from fortune_levels.json):
-- ⚡ ULTRA (大吉) - Gold #FFD700 - Flash animation + double haptic
-- 🟢 SUPER (中吉) - Neon green #00FF41
-- 🔵 BASIC (小吉) - Blue #00A0FF
-- 🟡 GLITCH (末吉/平) - Yellow #FFC107
-- 🔴 ERROR (凶) - Red #FF2D55 - Glitch/shake effect
+#### Critical Files to Modify
 
-**Challenges Solved**:
-- Layout overflow on small watch screens → Added ScrollView + reduced container size (80x100 → 60x70)
-- File references broken after Xcode clean → Re-added all ViewModels/Motion/Haptics folders to project
-- Missing simulator button → Made button more prominent with border and bold text
-- Async warnings → Removed unnecessary `await` on @MainActor functions
+**FortuneView.swift** - Complete refactor with 12-stage flow (~400-450 lines)
+**VideoPlayerView.swift** (NEW) - Reusable MP4 player component (~80-100 lines)
+**Assets.xcassets/Fortune/** - 21 image sets organized in subfolders
+**Resources/Videos/** - 3 renamed MP4 files
 
-**Lessons Learned**:
-- Xcode Clean Build Folder can break file references - need to re-add files to project
-- Watch screen size constraints require careful sizing (60-70pt height max for containers)
-- ScrollView essential for content that varies in height across different stages
-- Simulator button visibility critical - use borders and bold text, not just small gray text
-- fortune_levels.json integration works perfectly for dynamic fortune content
+#### Potential Issues
 
----
-
-#### **Sprint 5: Visual Polish** (Phase 6)
-**Goal**: Apply Japanese folk art style
-
-- Create `JapaneseFolkTheme.swift` (traditional color palette)
-- Replace placeholder UI with bold outlined, high-contrast colors
-- Add visual effects (bold strokes, flat fills, traditional patterns)
-- Refine typography with strong weight and clarity
-
-**Files to Create**:
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Design/JapaneseFolkTheme.swift`
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Design/Components/OutlinedText.swift`
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Design/Effects/TraditionalPatterns.swift`
-
-**Validation**: App looks like PRD mockups with Japanese folk art aesthetic
+1. **Video Playback Performance**: May need preloading or re-encoding at lower bitrate
+2. **Bundle Size**: +18.5MB (target <200MB for App Store)
+3. **Video Completion Detection**: Timeout fallback if NotificationCenter fails
+4. **State Machine Complexity**: 12 states with async transitions - requires careful testing
 
 ---
 
-#### **Sprint 6: Sound & Final Polish** (Phase 7)
-**Goal**: Audio feedback + bug fixes
+### Sprint 6: Sound & Final Polish (UPCOMING)
+
+**Goal**: Audio feedback + final polish
 
 - Add sound effects (success/error tones)
 - Refine haptic patterns
@@ -350,10 +317,8 @@ Domain (What) → Data (How) → App (Presentation)
 - Bug fixes
 
 **Files to Create**:
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Audio/SoundEngine.swift`
-- `apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/Resources/Sounds/*.mp3`
-
-**Validation**: Full PRD feature set working on Apple Watch
+- `Audio/SoundEngine.swift`
+- `Resources/Sounds/*.mp3`
 
 ---
 
@@ -379,23 +344,26 @@ config/
   fortune_levels.json           # Single source of truth
 ```
 
-### To Create (During Implementation)
+### Current Work (Sprint 5)
 ```
-apps/apple/CyberOracleWatchApp/
+apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/
+  Assets.xcassets/
+    Fortune/                    # ✅ Created - 21 imagesets
+  Resources/
+    Videos/                     # ✅ Created - 3 MP4 files
+  Components/
+    VideoPlayerView.swift       # TODO - Phase 2
   Views/
-    HomeView.swift              # Sprint 1
-    DailyLuckView.swift         # Sprint 2
-    DecisionView.swift          # Sprint 3
-    FortuneView.swift           # Sprint 4
-  Motion/
-    ShakeDetector.swift         # Sprint 3
-  Haptics/
-    HapticEngine.swift          # Sprint 3
-    FortuneHapticPatterns.swift # Sprint 4
-  Design/
-    JapaneseFolkTheme.swift     # Sprint 5
+    FortuneView.swift           # TODO - Refactor to 12-stage flow
+```
+
+### Future Work (Sprint 6)
+```
+apps/apple/CyberOracleWatch/CyberOracleWatch Watch App/
   Audio/
-    SoundEngine.swift           # Sprint 6
+    SoundEngine.swift
+  Resources/
+    Sounds/*.mp3
 ```
 
 ---
@@ -536,13 +504,13 @@ swift test  # Run XCTest suite
 
 ## 🔑 Key Takeaways
 
-1. **Architecture is complete** - All business logic exists, only UI missing
-2. **Start with Sprint 1** - Create Xcode project + basic navigation
-3. **Use placeholder UI first** - Refine Japanese folk art visuals in Sprint 5
-4. **Focus on watchOS** - iPhone expansion comes after MVP
-5. **Offline-first** - Use `LocalOracleService`, deploy backend later
-6. **Test on real device** - Haptics/motion require physical Apple Watch
+1. **Sprints 1-4 Complete** - All core features functional with placeholder UI
+2. **Sprint 5 In Progress** - Integrating 21 PNGs + 3 MP4s for Japanese folk art visuals
+3. **12-Stage Flow** - Replacing 4-stage placeholder with complex animation sequence
+4. **Video Playback** - Using AVPlayer for MP4 transitions on watchOS
+5. **Offline-first** - Using `LocalOracleService`, backend optional
+6. **Test on real device** - Haptics/motion/video require physical Apple Watch
 
 ---
 
-**Ready to implement?** Start with Sprint 1: Create the Xcode watchOS project and basic navigation.
+**Current Status**: Phase 1 (Asset Preparation) complete. Next: Phase 2 (VideoPlayerView component).
