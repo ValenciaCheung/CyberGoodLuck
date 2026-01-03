@@ -136,6 +136,8 @@ npm run dev
 
 **提交**：`ad3bb5b` - feat: Complete Sprint 2
 
+> **注意**：Sprint 5 将根据 PRD v1.0 重写 Daily Luck 功能，采用全新的交互流程。
+
 ---
 
 ### ✅ Sprint 3: Decision Maker (已完成 - 2025-12-27)
@@ -202,5 +204,11 @@ npm run dev
 ---
 
 ### 🎯 后续 Sprints（实现节奏）
-- **Sprint 5**：Visual Polish（赛博朋克视觉效果）
+- **Sprint 5**：Daily Luck Core Flow（PRD v1.0）
+  - 全新交互流程：Opening → Shake → Coin Transition → Result List → Watch Face
+  - 核心体验：Core Haptics 模拟硬币碰撞触感
+  - 4 维度垂直滚动列表（Love/Wealth/Health/Career）
+  - 4 级运势状态：大吉/中吉/小吉/凶
+  - 招财猫表情 2 帧循环动画（1000ms）
+  - "设为表盘" 功能集成
 - **Sprint 6**：Sound & Final Polish（音效与最终打磨）

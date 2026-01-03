@@ -25,6 +25,13 @@ public final class HapticEngine {
         WKInterfaceDevice.current().play(.failure)
     }
 
+    // MARK: - Daily Luck Haptics
+
+    /// Play gentle haptic during Maneki-neko animation
+    public func playCatShake() {
+        WKInterfaceDevice.current().play(.click)
+    }
+
     // MARK: - Fortune Stick Haptics
 
     /// Play stick collision haptic (light tap)
