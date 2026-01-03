@@ -28,14 +28,21 @@ struct VideoPlayerView: View {
                 // Fallback to static image if video fails
                 Image(fallback)
                     .resizable()
-                    .scaledToFit()
-            } else if let player = player {
-                // Video player
-                VideoPlayer(player: player)
+                    .scaledToFill()
                     .ignoresSafeArea()
-                    .onAppear {
-                        player.play()
-                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .clipped()
+            } else if let player = player {
+                // Video player - Full screen
+                GeometryReader { geometry in
+                    VideoPlayer(player: player)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .edgesIgnoringSafeArea(.all)
+                }
+                .ignoresSafeArea()
+                .onAppear {
+                    player.play()
+                }
             } else if isLoading {
                 // Loading state
                 ProgressView()
@@ -75,6 +82,9 @@ struct VideoPlayerView: View {
 
         // Configure for seamless playback
         avPlayer.actionAtItemEnd = .none
+
+        // Ensure video fills the screen by setting appropriate size
+        avPlayer.automaticallyWaitsToMinimizeStalling = false
 
         self.player = avPlayer
         isLoading = false

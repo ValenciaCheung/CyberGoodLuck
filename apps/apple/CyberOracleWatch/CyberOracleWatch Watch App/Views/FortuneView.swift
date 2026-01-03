@@ -54,79 +54,73 @@ struct FortuneView: View {
         ZStack {
             Color.black.ignoresSafeArea()
 
-            ScrollView {
-                VStack(spacing: 12) {
-                    // Title
-                    Text("FORTUNE")
-                        .font(.system(size: 16, weight: .bold, design: .monospaced))
-                        .foregroundColor(cyan)
-
-                    // Content based on flow state (12 stages)
-                    switch flowState {
-                    case .idle:
-                        staticImageView(imageName: "fortune_idle")
-                            .overlay(alignment: .bottom) {
-                                debugButton // Simulator button overlay
-                            }
-
-                    case .shakeTransition:
-                        videoView(fileName: "fortune_shake_transition") {
-                            transitionTo(.postShake)
-                        }
-
-                    case .postShake:
-                        staticImageView(imageName: "fortune_postshake")
-                            .onAppear { startPostShakeDelay() }
-
-                    case .decoratedShake:
-                        staticImageView(imageName: "fortune_decorated")
-                            .offset(x: shakeOffset)
-                            .onAppear { startShakeHaptics() }
-
-                    case .containerToAnswer:
-                        videoView(fileName: "fortune_container_to_answer") {
-                            transitionTo(.answerScreen)
-                        }
-
-                    case .answerScreen:
-                        staticImageView(imageName: "fortune_answer")
-                            .onAppear { startAnswerDelay() }
-
-                    case .categoryReveal:
-                        staticImageView(imageName: categoryImageName())
-                            .onAppear { startCategoryDelay() }
-
-                    case .intermediateResult:
-                        staticImageView(imageName: intermediateImageName())
-                            .onAppear { startIntermediateDelay() }
-
-                    case .daruma1:
-                        staticImageView(imageName: "fortune_daruma1")
-                            .onAppear { startDaruma1Delay() }
-
-                    case .darumaTransition:
-                        videoView(fileName: "fortune_daruma_transition") {
-                            transitionTo(.daruma2)
-                        }
-
-                    case .daruma2:
-                        staticImageView(imageName: "fortune_daruma2")
-                            .onAppear { startDaruma2Delay() }
-
-                    case .finalResult:
-                        staticImageView(imageName: finalImageName())
-                            .scaleEffect(resultScale)
-                            .onAppear { showFinalResult() }
-                            .onTapGesture { resetFortune() }
-                            .overlay(alignment: .bottom) {
-                                Text("Tap to retry")
-                                    .font(.system(size: 10, design: .monospaced))
-                                    .foregroundColor(neonGreen.opacity(0.5))
-                                    .padding(.bottom, 20)
-                            }
+            // Content based on flow state (12 stages) - Full screen, no scrolling
+            switch flowState {
+            case .idle:
+                staticImageView(imageName: "fortune_idle")
+                    .overlay(alignment: .bottom) {
+                        debugButton // Simulator button overlay
                     }
+
+            case .shakeTransition:
+                videoView(fileName: "fortune_shake_transition") {
+                    transitionTo(.postShake)
                 }
-                .padding()
+
+            case .postShake:
+                staticImageView(imageName: "fortune_postshake")
+                    .onTapGesture { transitionTo(.decoratedShake) }
+
+            case .decoratedShake:
+                staticImageView(imageName: "fortune_decorated")
+                    .offset(x: shakeOffset)
+                    .onAppear { startShakeHaptics() }
+                    .onTapGesture {
+                        currentTask?.cancel()
+                        shakeOffset = 0
+                        transitionTo(.containerToAnswer)
+                    }
+
+            case .containerToAnswer:
+                videoView(fileName: "fortune_container_to_answer") {
+                    transitionTo(.answerScreen)
+                }
+
+            case .answerScreen:
+                staticImageView(imageName: "fortune_answer")
+                    .onAppear { callFortuneAPI() }
+                    .onTapGesture { transitionTo(.categoryReveal) }
+
+            case .categoryReveal:
+                staticImageView(imageName: categoryImageName())
+                    .onTapGesture { transitionTo(.intermediateResult) }
+
+            case .intermediateResult:
+                staticImageView(imageName: intermediateImageName())
+                    .onTapGesture { transitionTo(.daruma1) }
+
+            case .daruma1:
+                staticImageView(imageName: "fortune_daruma1")
+                    .onTapGesture { transitionTo(.darumaTransition) }
+
+            case .darumaTransition:
+                videoView(fileName: "fortune_daruma_transition") {
+                    transitionTo(.daruma2)
+                }
+
+            case .daruma2:
+                staticImageView(imageName: "fortune_daruma2")
+                    .onTapGesture {
+                        // Randomly select final result image
+                        selectedFinalIndex = Int.random(in: 0..<5)
+                        transitionTo(.finalResult)
+                    }
+
+            case .finalResult:
+                staticImageView(imageName: finalImageName())
+                    .scaleEffect(resultScale)
+                    .onAppear { showFinalResult() }
+                    .onTapGesture { resetFortune() }
             }
         }
         .onAppear {
@@ -149,8 +143,10 @@ struct FortuneView: View {
     private func staticImageView(imageName: String) -> some View {
         Image(imageName)
             .resizable()
-            .scaledToFit()
+            .scaledToFill()
+            .ignoresSafeArea()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .clipped()
     }
 
     @ViewBuilder
@@ -272,7 +268,7 @@ struct FortuneView: View {
         }
     }
 
-    private func startAnswerDelay() {
+    private func callFortuneAPI() {
         currentTask?.cancel()
         currentTask = Task {
             // Call fortune API
@@ -284,13 +280,7 @@ struct FortuneView: View {
                     selectedFortuneLevel = fortune.level.key
                 }
             }
-
-            // Wait 0.5s then proceed
-            try? await Task.sleep(nanoseconds: 500_000_000)
-
-            if !Task.isCancelled {
-                transitionTo(.categoryReveal)
-            }
+            // No auto-advance - user taps to continue
         }
     }
 
