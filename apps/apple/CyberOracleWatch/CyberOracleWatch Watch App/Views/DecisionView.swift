@@ -75,9 +75,11 @@ struct DecisionView: View {
     @ViewBuilder
     private var prayerView: some View {
         VStack(spacing: 16) {
-            // Praying hands emoji
-            Text("🙏")
-                .font(.system(size: 60))
+            // Daruma doll with "Shake" text
+            Image("DM_Daruma")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 100)
                 .opacity(shakeDetector.shakeIntensity > 0 ? 0.7 : 1.0)
 
             // Prompt
@@ -116,8 +118,10 @@ struct DecisionView: View {
     private var tossingView: some View {
         VStack(spacing: 16) {
             // Coin flip animation
-            Text("💫")
-                .font(.system(size: 60))
+            Image("DM_YesCoin")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 80, height: 80)
                 .rotationEffect(.degrees(rotationAngle))
                 .scaleEffect(scale)
 
@@ -132,15 +136,12 @@ struct DecisionView: View {
     @ViewBuilder
     private func resultView(decision: DecisionResult) -> some View {
         VStack(spacing: 16) {
-            // Result emoji
-            Text(decision.result == .yes ? "✅" : "❌")
-                .font(.system(size: 60))
+            // Result coin (YES or NO)
+            Image(decision.result == .yes ? "DM_YesCoin" : "DM_NoCoin")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 120, height: 120)
                 .scaleEffect(scale)
-
-            // Result text
-            Text(decision.result == .yes ? "YES" : "NO")
-                .font(.system(size: 32, weight: .bold, design: .monospaced))
-                .foregroundColor(decision.result == .yes ? successGreen : errorRed)
 
             // Timestamp
             Text(formattedTime(decision.decidedAt))
